@@ -81,14 +81,19 @@ def import_csv(filename,heads):
             query += ")"
             csr.execute(query)
     dbs.commit()
-
+def tableExists(tableName,tablesTuple):
+    temp = False
+    for table in tablesTuple:
+        if (tableName in table):
+            temp = True
+    return temp
 
 if (tables == None):
     hd = getCSVHead(csv_file)
     createTable(tbname,hd)
     import_csv(csv_file,hd)
 else :
-    if (tbname in tables):
+    if (tableExists(tbname,tables)):
         hd = getTableHeads(tbname)
         import_csv(csv_file,hd)
     else :
